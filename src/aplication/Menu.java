@@ -3,13 +3,15 @@ package aplication;
 import java.util.Scanner;
 
 import classes.Library;
+import classes.User;
 
 public class Menu {
 	public static Scanner sc = new Scanner(System.in);
 	public static boolean finish = false;
 	public static int option=0;
+	public User user = new User();
 	
-	public static void showMenu(Library library) {
+	public void showMenu(Library library) {
 		while(!finish) {
 			System.out.println("Main Menu");
 			System.out.println("[0] - Exit\n"
@@ -27,7 +29,8 @@ public class Menu {
 				finish=true;
 				break;
 			case 1:
-				library.createUser();
+				user.createUser(sc, user);
+				library.registerUser(user);
 				break;
 			case 2:
 				library.addCollectionItem(null);

@@ -42,14 +42,6 @@ public class Library {
 	}
 	
 	
-	
-	public void createUser() {
-		User newUser = new User();
-		newUser.createUser();
-		registerUser(newUser);
-	}
-	
-	
 	/**
 	 * Método para empréstimo de item, passando como parâmatros os objetos collectionItem e User.
 	 * O método verifica se o item está disponível para empréstimo, caso positivo instancia um empréstimo

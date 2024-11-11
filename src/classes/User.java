@@ -1,6 +1,7 @@
 package classes;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class User {
 	private String name;
@@ -49,6 +50,9 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 	}
 
+	public void setYearMonthDay(int y, int m, int d) {
+	//	this.dateOfBirth = dateOfBirth;
+	}
 
 	public String getSocialSecurityNumber() {
 		return socialSecurityNumber;
@@ -70,8 +74,17 @@ public class User {
 	}
 
 
-	public void createUser() {
-		
+	public void createUser(Scanner sc, User user) {	
+		System.out.print("Insert name: ");
+		user.setName(sc.nextLine());
+		System.out.print("\nInsert username: ");
+		user.setUserName(sc.nextLine());
+		System.out.print("\nInsert Social Security Number");
+		System.out.println("\nInsert date of birth");
+		user.setDateOfBirth(LocalDate.of(0, 0, 0));
+		sc.nextLine();
+		System.out.println("\nCreate password");
+		user.setPassword(sc.nextLine());
 	}
 	
 }
