@@ -42,8 +42,12 @@ public class Book extends CollectionItem {
 	}	
 	
 	//Methods
+
 		@Override
-	public void listCollection() {
-		// TODO Auto-generated method stub
+		/**
+		 * Livros comuns podem ter um prazo de emprétimo de 15 dias
+		 */
+		public int lendPeriod() {
+			return 15;
 		}
 }

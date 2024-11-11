@@ -1,6 +1,6 @@
 package classes;
 
-public abstract class CollectionItem {
+public abstract class CollectionItem implements LendRules {
 	private String title;
 	private String author;
 	private int pageNumbers;
@@ -68,5 +68,10 @@ public abstract class CollectionItem {
 		}
 	}
 	
-	public abstract void listCollection();
+	/**
+	 * Método implementado em função da Interface LendRules para que
+	 * as subclasses de CollectionItem implementem seus prazos máximos de empréstimos
+	 */
+	@Override
+	public abstract int lendPeriod();
 }

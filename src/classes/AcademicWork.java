@@ -32,9 +32,11 @@ public class AcademicWork extends CollectionItem{
 	}
 
 	@Override
-	public void listCollection() {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * Trabalhos academicos podem ter um prazo de empréstimo de até 30 dias
+	 */
+	public int lendPeriod() {
+		return 30;
 	}
 		
 }
