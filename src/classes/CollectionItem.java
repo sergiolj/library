@@ -3,7 +3,7 @@ package classes;
 import java.util.Scanner;
 
 public abstract class  CollectionItem implements LendRules {
-	private static int idCounter=1;
+	private static int idCounter=1; // Contador de itens da classe CollectionItem que funciona como identificador para itens do acervo
 	private int idItem;
 	private String title;
 	private String author;
@@ -76,6 +76,11 @@ public abstract class  CollectionItem implements LendRules {
 	}
 
 	//Methods
+	/**
+	 * Método usado para ler o conteúdo de um parâmetro boleano que armazena a informação de que o item está ou não
+	 * disponível para empréstimo.
+	 * @return
+	 */
 	public String availableStatus() {
 		if(this.available) {
 			return "Avaiable";
@@ -83,8 +88,6 @@ public abstract class  CollectionItem implements LendRules {
 			return "NOT Avaiable";
 		}
 	}
-
-
 	
 	/**
 	 * Método implementado em função da Interface LendRules para que

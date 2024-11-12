@@ -5,8 +5,8 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class User {
-	private static int idCounter=1;
-	private int idUser;
+	private static int idCounter=1; // Variável da Classe (static) Contador de itens da classe User que funciona como identificador para usuários
+	private int idUser; // Código identificador do usuário
 	private String name;
 	private String userName;
 	private LocalDate dateOfBirth;
@@ -66,26 +66,42 @@ public class User {
 	}
 
 
-
+	/**
+	 * Método estático usado para criar instâncias com parâmtros passados por teclado pelo usuário.
+	 * Os atributos do usuário são todos do tipo String, com exceção da data de nascimento que é do tipo
+	 * LocalDate. Para tratar posssíveis erros de inserção da data foi criado um loop while e um tratamento de
+	 * exceção com try catch.
+	 * A função LocalDate.parse(CharSequence) faz a conversão do dado para tipo LocalDate.
+	 * 
+	 * Caso todos os parâmetros sejam fornecidos corretamente o método retorna um objeto do tipo User.
+	 * @param sc
+	 * @return
+	 */
 	public static User createUser (Scanner sc) {
 		User user = new User();
 		System.out.print("Insert name: ");
 		user.setName(sc.nextLine());
-		
-		System.out.print("\nInsert username: ");
+
+		System.out.print("Insert username: ");
 		user.setUserName(sc.nextLine());
-		
-		System.out.print("\nInsert Social Security Number");
+
+		System.out.print("Insert Social Security Number: ");
 		user.setSocialSecurityNumber(sc.nextLine());
-		
-		System.out.println("\nInsert date of birth (aaaa-mm-dd)");
-		String date = sc.nextLine();
-		try {
-			user.setDateOfBirth((LocalDate.parse(date)));
-		}catch(DateTimeParseException e){
-			System.out.println("Invalid date format. Format expected (aaaa-mm-dd).");
+
+
+
+
+		while(user.getDateOfBirth() == null) {
+			try {
+				System.out.print("Insert date of birth (aaaa-mm-dd): ");
+				String date = sc.nextLine();
+				user.setDateOfBirth((LocalDate.parse(date)));
+				System.out.println();
+				
+			}catch(DateTimeParseException e){
+				System.out.print("\nInvalid date format. Format expected (aaaa-mm-dd).\n");
+			}
 		}
-		
 		return user;
 	}
 	

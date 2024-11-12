@@ -45,10 +45,12 @@ public class Library {
 	 * Método para empréstimo de item, passando como parâmatros os objetos collectionItem e User.
 	 * O método verifica se o item está disponível para empréstimo, caso positivo instancia um empréstimo
 	 * através do método Lending passando os parâmetros de usuário e item a ser emprestado.
-	 * Após instanciar o ArrayList lendind recebe os dados do objeto emprestado (lend)
+	 * Após instanciar o ArrayList lendindList recebe os dados do objeto emprestado (lend)
 	 * A seguir modifica a variável que controla a disponibilidade do item para false e informa ao usuário
 	 * a data limite para a devolução.
 	 * Caso o item esteja indisponível informa ao usuário sua indisponibilidade.
+	 * 
+	 * Aqui temos dois métodos com nomes iguais mas parâmetros diferentes, os chamados MÉTODOS SOBRECARREGADOS.
 	 * 
 	 * @param collectionItem
 	 * @param user
@@ -66,35 +68,58 @@ public class Library {
 		}
 	}
 	
-	
+	/**
+	 * Método para simulação de carga de objetos na lista de empréstimos.
+	 * @param collectionItem
+	 * @param user
+	 */
+	public void loadLendItem(CollectionItem collectionItem, User user) {
+		if(collectionItem.isAvailable()) {
+			Lending lend = new Lending(collectionItem, user);
+			this.lendingList.add(lend);
+			collectionItem.setAvailable(false);
+		}
+	}
+	/**
+	 * Método para empréstimo de item da biblioteca passando os parâmetros do código identificador da obra e 
+	 * código identificador do usuário que irá fazer o empréstimo.
+	 * Para o empréstimo ocorrer é necessário recuperar os objetos do item e do usuário das listas da biblioteca,
+	 * o que é feito com os métodos getItem e getUser instanciando os objetos criados.
+	 * A seguir são feitos testes com ifs simples para saber se os objetos foram instanciados adequadamente,
+	 * caso não tenham sido é exibida uma mensagem de erro e o método é abortado.
+	 * Caso os objetos tenham sido instanciados corretamente o método lendItem(CollectionItem, User) é acionado
+	 * para terminar o processo.
+	 * 
+	 * Aqui temos dois métodos com nomes iguais mas parâmetros diferentes, os chamados MÉTODOS SOBRECARREGADOS.
+	 * 
+	 * @param idItem
+	 * @param idUser
+	 */
 	public void lendItem(int idItem, int idUser) {
 		CollectionItem lendCollectionItem = getItemFromList(idItem);
 		User borrowUser  =  getUserFromList(idUser);
-		
+
 		if(lendCollectionItem == null) {
 			System.out.println("Id item ["+idItem+"] not found.");
 			return;
 		}
-		
+
 		if(borrowUser == null) {
 			System.out.println("User id ["+idUser+"] not found.");
 			return;
 		}
 		
-		if(getItemFromList(idItem).isAvailable()) {
-			Lending lend = new Lending(lendCollectionItem, borrowUser);
-			
-			this.lendingList.add(lend);
-			
-			getItemFromList(idItem).setAvailable(false);
-			System.out.println("\nEnjoy your reading!! You must return it until "+lend.getReturnDate());
-			System.out.println();
-		}else {
-			System.out.print("\nSorry!! The item [" + getItemFromList(idItem).getTitle() + "] isn't avaiable.\n");
-			System.out.println();
-		}
+			lendItem(lendCollectionItem, borrowUser);
+
 	}
 	
+	/**
+	 * O método verifica se um determinado item com código de identificação (em formato de inteiro) 
+	 * passado por parâmetro existe na lista de itens da
+	 * biblioteca, caso o item exista na coleção o objeto representado por ele é retornado pelo método.
+	 * @param idItem
+	 * @return
+	 */
 	private CollectionItem getItemFromList(int idItem) {
 		for(CollectionItem lendCollectionItem:collectionList) {
 			if(lendCollectionItem.getIdItem() == idItem) {
@@ -105,6 +130,13 @@ public class Library {
 		
 	}
 
+	/**
+	 * O método verifica se um determinado usuário com código de identificação (em formato de inteiro) 
+	 * passado por parâmetro existe na lista de usuários da
+	 * biblioteca, caso o usuário exista no cadastro o objeto representado por ele é retornado pelo método.
+	 * @param idUser
+	 * @return
+	 */
 	private User getUserFromList(int idUser) {
 		for(User borrowUser:userList) {
 			if(borrowUser.getIdUser() == idUser) {
@@ -144,7 +176,14 @@ public class Library {
 		}
 	}
 	
-	
+	/**
+	 * Método alternativo criado para possibilitar a devolução do item utilizando como parâmetros o código do item e o código do usuário.
+	 * Assim como no caso do empréstimo os objetos são recuperados das listas de itens e de usuário e caso sejam encontradas
+	 * as correspondências exatas o método genérico para devolução do item é acionado e termina o processso.
+	 * 
+	 * @param idItem
+	 * @param idUser
+	 */
 	public void returnItem(int idItem,int idUser) {
 		CollectionItem returnCollectionItem = getItemFromList(idItem);
 		User borrowUser  =  getUserFromList(idUser);
@@ -168,7 +207,6 @@ public class Library {
 	 */
 	public void listCollection() {
 		System.out.print("Library Collection\n");
-		System.out.println("``````````````````````");
 		for(CollectionItem i: collectionList) {
 			System.out.print(i.getIdItem()+"|"+i.getTitle()+" | "+i.getAuthor()+ " | "+i.availableStatus()+"\n");
 		}
@@ -182,14 +220,15 @@ public class Library {
 	 * será "Não existem itens emprestados no momento"
 	 */
 	public void listLendedItems() {
+		System.out.print("Lended Items\n");
 		if(lendingList.size()>0) {
 			for(Lending l: lendingList) {
 				System.out.print(l.getCollectionItem().getIdItem()+"|"+l.getCollectionItem().getTitle()+" | "+l.getUser().getName()+" | "+l.getReturnDate()+"\n");
 			}
 		}else {
-			System.out.println("At the moment there is no lended items!");
+			System.out.println("At the moment there is no lended items!\n");
 		}
-
+		System.out.println();
 	}
 	
 	/**
@@ -204,4 +243,5 @@ public class Library {
 		}
 		System.out.println();
 	}
+	
 }

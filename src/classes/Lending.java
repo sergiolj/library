@@ -10,6 +10,11 @@ public class Lending {
 	private LocalDate returnDate;
 	
 	//Constructor
+	
+	public Lending() {
+		this.lendDate = LocalDate.now();
+		this.returnDate = lendDate.plusDays(collectionItem.lendPeriod());
+	}
 	/**
 	 * O Método construtor necessita de dois parâmetros passados pelo usuário para proceder
 	 * com um empréstimo, basicamente qual o item a ser emprestado e quem é o usuário que fará

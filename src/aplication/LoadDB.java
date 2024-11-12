@@ -7,9 +7,12 @@ import classes.Book;
 import classes.Library;
 import classes.User;
 import classes.AcademicWork.WorkType;
-
+/**
+ * Classe criada para simular o comportamento da biblioteca ao adicionar objetos pré estabelecidos nas listas de itens de biblioteca e
+ * na lista de usuários.
+ */
 public class LoadDB {
-	public static void loadCollectionItems(Library library) {
+	public static void loadCollectionUserLends(Library library) {
 		Book book1 = new Book("Capitães de Areia", "Jorge Amado", 342, 1937, 1, 1937,"Editora José Olympio");
 		Book book2 = new Book("O País do Carnaval","Jorge Amado", 176, 2011, 1, 2011, "Companhia das Letras");
 		Book book3 = new Book("Endurance", "Alfred Lasing", 282, 1959,1, 1959,"MCGRAW HILL");
@@ -28,14 +31,16 @@ public class LoadDB {
 		library.addCollectionItem(essay);
 		library.addCollectionItem(finalPaper);
 		library.addCollectionItem(thesis);
-	}
 
-	public static void loadSubscribedUsers(Library library) {
 		User user1 = new User("Sérgio Lopes Júnior","sergiolj", LocalDate.of(1973, 9, 25), "5543654365","1234");
 		User user2 = new User("Itana Nogueira Nunes","itanann", LocalDate.of(1969, 6, 5), "1233213214", "1234");
 		
 		library.registerUser(user1);
 		library.registerUser(user2);
 		
+
+		library.loadLendItem(book1, user1);
+		library.loadLendItem(book2, user1);
+
 	}
 }

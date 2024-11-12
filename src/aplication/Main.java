@@ -7,9 +7,8 @@ public class Main {
 		Library myLibrary = new Library();
 		Menu menu = new Menu();
 		
-		LoadDB.loadCollectionItems(myLibrary);
-		LoadDB.loadSubscribedUsers(myLibrary);
-		
+		LoadDB.loadCollectionUserLends(myLibrary); // Método estático usado para simular carga de BD
+
 		menu.showMenu(myLibrary);
 		
 	}
