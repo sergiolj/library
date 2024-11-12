@@ -3,9 +3,9 @@ package classes;
 import java.util.ArrayList;
 
 public class Library {
-	private ArrayList<CollectionItem> collection;
-	private ArrayList<User> user;
-	private ArrayList<Lending> lending;
+	private ArrayList<CollectionItem> collectionList;
+	private ArrayList<User> userList;
+	private ArrayList<Lending> lendingList;
 	
 	//Constructor
 	/**
@@ -14,9 +14,9 @@ public class Library {
 	 * das outras classes.
 	 */
 	public Library() {
-		this.collection = new ArrayList<>();
-		this.user = new ArrayList<>();
-		this.lending = new ArrayList<>();
+		this.collectionList = new ArrayList<>();
+		this.userList = new ArrayList<>();
+		this.lendingList = new ArrayList<>();
 	}
 	
 	//Getters and Setters
@@ -30,7 +30,7 @@ public class Library {
 	 * @param collectionItem
 	 */
 	public void addCollectionItem(CollectionItem collectionItem) {
-		this.collection.add(collectionItem);
+		this.collectionList.add(collectionItem);
 	}
 	
 	/**
@@ -38,9 +38,8 @@ public class Library {
 	 * @param user
 	 */
 	public void registerUser(User user) {
-		this.user.add(user);
+		this.userList.add(user);
 	}
-	
 	
 	/**
 	 * Método para empréstimo de item, passando como parâmatros os objetos collectionItem e User.
@@ -57,7 +56,7 @@ public class Library {
 	public void lendItem(CollectionItem collectionItem, User user) {
 		if(collectionItem.isAvailable()) {
 			Lending lend = new Lending(collectionItem, user);
-			this.lending.add(lend);
+			this.lendingList.add(lend);
 			collectionItem.setAvailable(false);
 			System.out.println("\nEnjoy your reading!! You must return it until "+lend.getReturnDate());
 			System.out.println();
@@ -67,6 +66,54 @@ public class Library {
 		}
 	}
 	
+	
+	public void lendItem(int idItem, int idUser) {
+		CollectionItem lendCollectionItem = getItemFromList(idItem);
+		User borrowUser  =  getUserFromList(idUser);
+		
+		if(lendCollectionItem == null) {
+			System.out.println("Id item ["+idItem+"] not found.");
+			return;
+		}
+		
+		if(borrowUser == null) {
+			System.out.println("User id ["+idUser+"] not found.");
+			return;
+		}
+		
+		if(getItemFromList(idItem).isAvailable()) {
+			Lending lend = new Lending(lendCollectionItem, borrowUser);
+			
+			this.lendingList.add(lend);
+			
+			getItemFromList(idItem).setAvailable(false);
+			System.out.println("\nEnjoy your reading!! You must return it until "+lend.getReturnDate());
+			System.out.println();
+		}else {
+			System.out.print("\nSorry!! The item [" + getItemFromList(idItem).getTitle() + "] isn't avaiable.\n");
+			System.out.println();
+		}
+	}
+	
+	private CollectionItem getItemFromList(int idItem) {
+		for(CollectionItem lendCollectionItem:collectionList) {
+			if(lendCollectionItem.getIdItem() == idItem) {
+				return lendCollectionItem;
+			}
+		}
+		return null;
+		
+	}
+
+	private User getUserFromList(int idUser) {
+		for(User borrowUser:userList) {
+			if(borrowUser.getIdUser() == idUser) {
+				return borrowUser;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * Método criado para devolver o item passando como parâmetros novamente o item da coleção e o nome do usuário
 	 * Cria um objeto empréstimo passando os parâmetros collectionItem e user.
@@ -83,9 +130,9 @@ public class Library {
 	public void returnItem(CollectionItem collectionItem, User user) {
 		Lending lend = new Lending(collectionItem, user);
 		boolean found=false;
-		for(Lending l:lending) {
-			if((l.getUser().equals(lend.getUser())) && (l.getCollectionItem().equals(lend.getCollectionItem()))) {
-				lending.remove(l);
+		for(Lending l:lendingList) {
+			if (l.getCollectionItem().getIdItem() == lend.getCollectionItem().getIdItem()){
+				lendingList.remove(l);
 				collectionItem.setAvailable(true);
 				System.out.println("Thank you for using our services!\n");
 				found=true;
@@ -97,6 +144,23 @@ public class Library {
 		}
 	}
 	
+	
+	public void returnItem(int idItem,int idUser) {
+		CollectionItem returnCollectionItem = getItemFromList(idItem);
+		User borrowUser  =  getUserFromList(idUser);
+		
+		if(returnCollectionItem == null) {
+			System.out.println("Id item ["+idItem+"] not found.");
+			return;
+		}
+		
+		if(borrowUser == null) {
+			System.out.println("User id ["+idUser+"] not found.");
+			return;
+		}
+		returnItem(returnCollectionItem, borrowUser);
+	}
+	
 	/**
 	 * Método que exibe a lista de itens cadastrados na collection, que podem ser livros ou
 	 * trabalhos acadêmicos, ou quais outros itens que sejam adicionados ao acervo e que
@@ -105,10 +169,8 @@ public class Library {
 	public void listCollection() {
 		System.out.print("Library Collection\n");
 		System.out.println("``````````````````````");
-		int index=0;
-		for(CollectionItem i: collection) {
-			index++;
-			System.out.print(index+"|"+i.getTitle()+" | "+i.getAuthor()+ " | "+i.availableStatus()+"\n");
+		for(CollectionItem i: collectionList) {
+			System.out.print(i.getIdItem()+"|"+i.getTitle()+" | "+i.getAuthor()+ " | "+i.availableStatus()+"\n");
 		}
 		System.out.println();
 	}
@@ -120,11 +182,9 @@ public class Library {
 	 * será "Não existem itens emprestados no momento"
 	 */
 	public void listLendedItems() {
-		int index=0;
-		if(lending.size()>0) {
-			index++;
-			for(Lending l: lending) {
-				System.out.print(index+"|"+l.getCollectionItem().getTitle()+" | "+l.getUser().getName()+" | "+l.getReturnDate()+"\n");
+		if(lendingList.size()>0) {
+			for(Lending l: lendingList) {
+				System.out.print(l.getCollectionItem().getIdItem()+"|"+l.getCollectionItem().getTitle()+" | "+l.getUser().getName()+" | "+l.getReturnDate()+"\n");
 			}
 		}else {
 			System.out.println("At the moment there is no lended items!");
@@ -137,12 +197,10 @@ public class Library {
 	 * Através de um forEach iterrando o objeto User u através da lista user o resultado
 	 * é impresso na tela com os atributos de nome do usuário, cpf e data de nascimento.
 	 */
-	public void listUser() {
-		int index=0;
+	public void listUsers() {
 		System.out.print("User List\n");
-		for(User u: user) {
-			index++;
-			System.out.print(index+"|"+u.getName()+" | "+u.getUserName()+" | "+u.getSocialSecurityNumber()+" | "+u.getDateOfBirth()+"\n");
+		for(User u: userList) {
+			System.out.print(u.getIdUser()+"|"+u.getName()+" | "+u.getUserName()+" | "+u.getSocialSecurityNumber()+" | "+u.getDateOfBirth()+"\n");
 		}
 		System.out.println();
 	}

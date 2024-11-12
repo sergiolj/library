@@ -1,11 +1,15 @@
 package classes;
 
+import java.util.Scanner;
+
 public class Book extends CollectionItem {
 	private int edition;
 	private int editionYear;
 	private String publisher;
 	
 	//Constructor
+	public Book() {}
+	
 	public Book(String title, String author, int pageNumbers, int publicationYear, int edition, int editionYear,
 			String publisher) {
 		super(title, author, pageNumbers, publicationYear);
@@ -49,5 +53,10 @@ public class Book extends CollectionItem {
 		 */
 		public int lendPeriod() {
 			return 15;
+		}
+		@Override
+		public static CollectionItem createCollectionItem(Scanner sc) {
+			Book book3 = new Book("Endurance", "Alfred Lasing", 282, 1959,1, 1959,"MCGRAW HILL");
+			return book3;
 		}
 }

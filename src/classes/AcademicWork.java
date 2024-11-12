@@ -1,5 +1,7 @@
 package classes;
 
+import classes.AcademicWork.WorkType;
+
 public class AcademicWork extends CollectionItem{
 	private String institution;
 	private WorkType worktype;
@@ -8,6 +10,8 @@ public class AcademicWork extends CollectionItem{
 	}
 	
 	//Construtor
+	public AcademicWork() {}
+	
 	public AcademicWork(String title, String author, int pageNumbers, WorkType worktype, int publicationYear, String institution) {
 		super(title, author, pageNumbers, publicationYear);
 		this.institution = institution;
@@ -37,6 +41,13 @@ public class AcademicWork extends CollectionItem{
 	 */
 	public int lendPeriod() {
 		return 30;
+	}
+
+	@Override
+	public static CollectionItem createCollectionItem() {
+		
+		AcademicWork thesis = new AcademicWork("Algoritmos de criptografia quântica, uma abordagem prática", "Sérgio Lopes Júnior", 987, WorkType.THESIS, 2032, "MIT - Massachusetts Instituct of Technology");	
+		return thesis;
 	}
 		
 }

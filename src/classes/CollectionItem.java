@@ -1,6 +1,10 @@
 package classes;
 
-public abstract class CollectionItem implements LendRules {
+import java.util.Scanner;
+
+public abstract class  CollectionItem implements LendRules {
+	private static int idCounter=1;
+	private int idItem;
 	private String title;
 	private String author;
 	private int pageNumbers;
@@ -9,7 +13,13 @@ public abstract class CollectionItem implements LendRules {
 	private boolean available;	
 	
 	//Construtor
+	public CollectionItem() {
+		this.idItem = idCounter++;
+		this.available = true;
+	}
+	
 	public CollectionItem(String title, String author, int pageNumbers, int publicationYear) {
+		this.idItem = idCounter++; 
 		this.title = title;
 		this.author = author;
 		this.pageNumbers = pageNumbers;
@@ -18,10 +28,16 @@ public abstract class CollectionItem implements LendRules {
 	}
 	
 	//Getters and Setters
+	
+	
 	public String getTitle() {
 		return title;
 	}
 	
+	public int getIdItem() {
+		return idItem;
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -67,11 +83,18 @@ public abstract class CollectionItem implements LendRules {
 			return "NOT Avaiable";
 		}
 	}
+
+
 	
 	/**
 	 * Método implementado em função da Interface LendRules para que
 	 * as subclasses de CollectionItem implementem seus prazos máximos de empréstimos
 	 */
 	@Override
-	public abstract int lendPeriod();
+	public int lendPeriod(){
+		return 10;
+	}
+
+	public abstract CollectionItem createCollectionItem(Scanner sc);
+	
 }

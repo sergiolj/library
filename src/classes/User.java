@@ -1,27 +1,33 @@
 package classes;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class User {
+	private static int idCounter=1;
+	private int idUser;
 	private String name;
 	private String userName;
 	private LocalDate dateOfBirth;
 	private String socialSecurityNumber;
-	private String password;
 	
-	public User() {}
+	public User() {
+		this.idUser = idCounter++;	
+	}
 	
 	public User( String name, String userName, LocalDate dateOfBirth, String socialSecurityNumber, String password) {
+		this.idUser = idCounter++;
 		this.name = name;
 		this.userName = userName;
 		this.dateOfBirth = dateOfBirth;
 		this.socialSecurityNumber = socialSecurityNumber;
-		this.password = password;
+	}
+	
+	public int getIdUser() {
+		return idUser;
 	}
 
-
-	
 	public String getUserName() {
 		return userName;
 	}
@@ -50,10 +56,6 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public void setYearMonthDay(int y, int m, int d) {
-	//	this.dateOfBirth = dateOfBirth;
-	}
-
 	public String getSocialSecurityNumber() {
 		return socialSecurityNumber;
 	}
@@ -64,27 +66,27 @@ public class User {
 	}
 
 
-	public String getPassword() {
-		return password;
-	}
 
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-	public void createUser(Scanner sc, User user) {	
+	public static User createUser (Scanner sc) {
+		User user = new User();
 		System.out.print("Insert name: ");
 		user.setName(sc.nextLine());
+		
 		System.out.print("\nInsert username: ");
 		user.setUserName(sc.nextLine());
+		
 		System.out.print("\nInsert Social Security Number");
-		System.out.println("\nInsert date of birth");
-		user.setDateOfBirth(LocalDate.of(0, 0, 0));
-		sc.nextLine();
-		System.out.println("\nCreate password");
-		user.setPassword(sc.nextLine());
+		user.setSocialSecurityNumber(sc.nextLine());
+		
+		System.out.println("\nInsert date of birth (aaaa-mm-dd)");
+		String date = sc.nextLine();
+		try {
+			user.setDateOfBirth((LocalDate.parse(date)));
+		}catch(DateTimeParseException e){
+			System.out.println("Invalid date format. Format expected (aaaa-mm-dd).");
+		}
+		
+		return user;
 	}
 	
 }
