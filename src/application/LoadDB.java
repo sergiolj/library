@@ -1,3 +1,8 @@
+/**
+ * @date 2024/november
+ * @author Sérgio Lopes Junior
+ * @email sergiolj@gmail.com
+ */
 package application;
 
 import java.time.LocalDate;
@@ -19,7 +24,7 @@ public class LoadDB {
 		Book book4 = new Book("Mar sem Fim", "Amyr Klink", 308, 2000, 1, 2000, "Companhia das Letras");
 		Book book5 = new Book("O Velho e o Mar", "Ernest Hemingway", 126, 1952, 107, 2013,"Bertrand Brasil");
 		AcademicWork essay = new AcademicWork("As mentiras que as IAs contam", "Sérgio Lopes Júnior", 23, WorkType.ESSAY, 2024, "Universidade Católica do Salvador");
-		AcademicWork finalPaper = new AcademicWork("Melhoria de um Processo Especializado em Customização e Manutenção de Software Legado",
+		AcademicWork finalPaper = new AcademicWork("Processo de Customização e Manutenção de Software Legado",
 				"Luiz E. P. Mata", 172, WorkType.FINALPAPER, 2015, "UNISUL - Universidade do Sul de Santa Catarina");
 		AcademicWork thesis = new AcademicWork("Algoritmos de criptografia quântica, uma abordagem prática", "Sérgio Lopes Júnior", 987, WorkType.THESIS, 2032, "MIT - Massachusetts Instituct of Technology");	
 		

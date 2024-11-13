@@ -1,3 +1,8 @@
+/**
+ * @date 2024/november
+ * @author Sérgio Lopes Junior
+ * @email sergiolj@gmail.com
+ */
 package application;
 
 import java.util.InputMismatchException;
@@ -54,7 +59,10 @@ public class Menu {
 						break;
 					case 2:
 						collectionItem = chooseType();
+						if(collectionItem != null) {
 						library.addCollectionItem(collectionItem.createCollectionItem(sc));
+						}else {
+						}
 						break;
 					case 3:
 						library.listCollection();
@@ -149,6 +157,6 @@ public class Menu {
 				sc.nextLine(); // Cleaning buffer to avoid ifinite loop behavior
 			}
 		}
-		return collectionItem;
+		return null;
 	}
 }

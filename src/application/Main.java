@@ -1,3 +1,8 @@
+/**
+ * @date 2024/november
+ * @author Sérgio Lopes Junior
+ * @email sergiolj@gmail.com
+ */
 package application;
 
 import classes.Library;
