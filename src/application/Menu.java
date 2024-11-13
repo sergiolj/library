@@ -1,4 +1,4 @@
-package aplication;
+package application;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -17,6 +17,16 @@ public class Menu {
 	private int idItem = 0;
 	private CollectionItem collectionItem = null;
 	
+	
+	/**
+	 * Método que implementa o menu principal da biblioteca com as opções de inserções de itens
+	 * de acervo e também usuários, assim como as opções de empréstimos e devoluções e também listagem
+	 * de acervo, itens emprestados e usuários.
+	 * 
+	 * Implementados tratamentos de exceção com uso de try{catch{ para tratar tipo de input inválido
+	 * e também o uso de if para tratar tipo numérico fora do intervalo.
+	 * @param library
+	 */
 	public void showMenu(Library library) {
 		option = -1;
 		while(!toChoose) {
@@ -44,11 +54,7 @@ public class Menu {
 						break;
 					case 2:
 						collectionItem = chooseType();
-						try {
-							library.addCollectionItem(collectionItem.createCollectionItem(sc));
-						}catch(NullPointerException e) {
-							collectionItem = chooseType();
-						}
+						library.addCollectionItem(collectionItem.createCollectionItem(sc));
 						break;
 					case 3:
 						library.listCollection();
@@ -79,6 +85,11 @@ public class Menu {
 
 	}
 
+	/**
+	 * Para evitar a necessidade de criar um objeto User para passar parâmetros foram criados dois
+	 * atributos primitivos do tipo int para definir um usuário e um item de coleção a ser 
+	 * emprestado.
+	 */
 	private void setidItemidUser() {
 		System.out.println("Set idUser");
 		this.idUser = sc.nextInt();
@@ -86,6 +97,16 @@ public class Menu {
 		this.idItem = sc.nextInt();
 	}
 
+	/**
+	 * SubMenu utilizado na inserção de itens do acervo que podem ser de tipos diferentes 
+	 * (Book e AcademicWork) que são definidos como subclasses da superclasse CollectionItem
+	 * O método retorna um objeto do tipo CollectionItem que será usado para chamar o método abstrato
+	 * criado na superclasse e implementado nas subclasses.
+	 * 
+	 * Implementados tratamentos de exceção com uso de try{catch{ para tratar tipo de input inválido
+	 * e também o uso de if para tratar tipo numérico fora do intervalo.
+	 * @return
+	 */
 	private CollectionItem chooseType() {
 		option = -1;
 		boolean toChoose =  false;

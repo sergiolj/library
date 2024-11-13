@@ -25,6 +25,10 @@ public class Book extends CollectionItem {
 	}
 
 	public void setEdition(int edition) {
+		/**
+		 * Aqui podem ser implementadas regras sobre como esse campo deve ser preenchido,
+		 * impedindo, por exemplo, a inserção de números negativos ou outras regras aplicáveis.
+		 */
 		this.edition = edition;
 	}
 
@@ -33,6 +37,11 @@ public class Book extends CollectionItem {
 	}
 
 	public void setEditionYear(int editionYear) {
+		/**
+		 * Aqui podem ser implementadas regras sobre como esse campo deve ser preenchido,
+		 * impedindo, por exemplo, a inserção de números negativos, valores maiores do que a
+		 * data atual ou outras regras aplicáveis.
+		 */
 		this.editionYear = editionYear;
 	}
 
@@ -43,6 +52,10 @@ public class Book extends CollectionItem {
 
 
 	public void setPublisher(String publisher) {
+		/**
+		 * Aqui podem ser implementadas regras sobre como esse campo deve ser preenchido,
+		 * possivelmente comprimento mínimo e máximo do atributo ou outras regras aplicáveis.
+		 */
 		this.publisher = publisher;
 	}	
 	
@@ -65,7 +78,7 @@ public class Book extends CollectionItem {
 		 * para cada classe que herdar a CollectionItem, deste modo itens com diferentes características
 		 * podem ser criados e modificados sob demanda.
 		 */
-		public  CollectionItem createCollectionItem(Scanner sc) {
+		public CollectionItem createCollectionItem(Scanner sc) {
 			Book book = new Book();
 			System.out.print("\nInsert a new book to Library Collection\n"
 					+ "Insert title: ");
@@ -83,7 +96,6 @@ public class Book extends CollectionItem {
 				}catch (InputMismatchException e) {
 					System.out.println("Invalid option. Only numbers are accepted.\n");
 					sc.nextLine(); // Cleaning buffer to avoid ifinite loop behavior
-					//Cada erro conta como um objeto criado no super.idCounter, como resolver?
 				}
 			}
 			
@@ -97,7 +109,6 @@ public class Book extends CollectionItem {
 				}catch (InputMismatchException e) {
 					System.out.println("Invalid option. Only numbers are accepted.\n");
 					sc.nextLine(); // Cleaning buffer to avoid ifinite loop behavior
-					//Cada erro conta como um objeto criado no super.idCounter, como resolver?
 				}
 			}
 				
@@ -111,7 +122,6 @@ public class Book extends CollectionItem {
 				}catch (InputMismatchException e) {
 					System.out.println("Invalid option. Only numbers are accepted.\n");
 					sc.nextLine(); // Cleaning buffer to avoid ifinite loop behavior
-					//Cada erro conta como um objeto criado no super.idCounter, como resolver?
 				}
 			}
 				
@@ -125,7 +135,6 @@ public class Book extends CollectionItem {
 				}catch (InputMismatchException e) {
 					System.out.println("Invalid option. Only numbers are accepted.\n");
 					sc.nextLine(); // Cleaning buffer to avoid ifinite loop behavior
-					//Cada erro conta como um objeto criado no super.idCounter, como resolver?
 				}
 			}
 		
@@ -134,5 +143,11 @@ public class Book extends CollectionItem {
 			System.out.println();
 			
 			return book;
+		}
+
+		@Override
+		public double lateReturnFee() {
+			// TODO Auto-generated method stub
+			return 0;
 		}
 }

@@ -1,4 +1,4 @@
-package aplication;
+package application;
 
 import classes.*;
 
@@ -8,8 +8,7 @@ public class TestMain {
 		// TODO Auto-generated method stub
 		Library myLibrary = new Library();
 		
-		LoadDB.loadCollectionItems(myLibrary);
-		LoadDB.loadSubscribedUsers(myLibrary);
+		LoadDB.loadCollectionUserLends(myLibrary);
 		
 		
 		Book book = new Book();

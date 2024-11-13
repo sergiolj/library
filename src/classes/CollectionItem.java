@@ -1,5 +1,6 @@
 package classes;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public abstract class  CollectionItem implements LendRules {
@@ -14,8 +15,21 @@ public abstract class  CollectionItem implements LendRules {
 	
 	//Construtor
 	public CollectionItem() {
-		this.idItem = idCounter++;
-		this.available = true;
+		try {
+			/**
+			 * Construtor vazio usado para a criação de itens de acervo pelo usuário e 
+			 * sujeito a erros de tipos de dados inválidos.
+			 */		
+		}catch(InputMismatchException e) {
+			/**
+			 * As mensagens de erro são tratadas pela subclasse
+			 * através da implementação do método abstrato createCollectionItem(Scanner sc)
+			 */
+		}
+		finally{
+			this.idItem = idCounter++; // Só incrementa o contador caso o objeto seja instanciado corretamente
+			this.available = true;
+		}
 	}
 	
 	public CollectionItem(String title, String author, int pageNumbers, int publicationYear) {
@@ -39,6 +53,10 @@ public abstract class  CollectionItem implements LendRules {
 	}
 
 	public void setTitle(String title) {
+		/**
+		 * Aqui podem ser implementadas regras sobre como esse campo deve ser preenchido,
+		 * possivelmente comprimento mínimo e máximo do atributo ou outras regras aplicáveis.
+		 */
 		this.title = title;
 	}
 
@@ -47,6 +65,10 @@ public abstract class  CollectionItem implements LendRules {
 	}
 
 	public void setAuthor(String author) {
+		/**
+		 * Aqui podem ser implementadas regras sobre como esse campo deve ser preenchido,
+		 * possivelmente comprimento mínimo e máximo do atributo ou outras regras aplicáveis.
+		 */
 		this.author = author;
 	}
 	
@@ -56,6 +78,10 @@ public abstract class  CollectionItem implements LendRules {
 	}
 
 	public void setPageNumbers(int pageNumbers) {
+		/**
+		 * Aqui podem ser implementadas regras sobre como esse campo deve ser preenchido,
+		 * impedindo, por exemplo, a inserção de números negativos ou outras regras aplicáveis.
+		 */
 		this.pageNumbers = pageNumbers;
 	}
 
@@ -64,6 +90,11 @@ public abstract class  CollectionItem implements LendRules {
 	}
 	
 	public void setPublicationYear(int publicationYear) {
+		/**
+		 * Aqui podem ser implementadas regras sobre como esse campo deve ser preenchido,
+		 * impedindo, por exemplo, a inserção de números negativos, valores maiores do que a
+		 * data atual ou outras regras aplicáveis.
+		 */
 		this.publicationYear = publicationYear;
 	}
 	

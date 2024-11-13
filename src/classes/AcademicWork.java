@@ -152,4 +152,10 @@ public class AcademicWork extends CollectionItem{
 		}
 		return null;
 	}
+
+	@Override
+	public double lateReturnFee() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
